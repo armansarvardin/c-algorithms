@@ -12,7 +12,7 @@ int binSearch(vector<int> a, int item) {
 
     while (low <= high) {
 
-        int mid = (low + high);
+        int mid = low + (high - low) / 2;
         int guess = a[mid];
 
         if (guess == item) {
