@@ -6,7 +6,7 @@
 
 using namespace std;
 
-bool bfs(map<string, vector<string>> graph, string name) {
+bool bfs(map<string, vector<string>> graph, string name, string seller) {
 
     queue<string> search_queue {};
     
@@ -18,19 +18,23 @@ bool bfs(map<string, vector<string>> graph, string name) {
 
     while(!search_queue.empty()) {
 
-        string person = search_queue.back();
+        string person = search_queue.front();
         search_queue.pop();
 
-        if (searched.count(person)) {
-            cout << person + " is a mango seller" << endl;
-            return true;
-        } else {
-            
-            for(string s: graph[person]) {
-                search_queue.push(person);
+        
+
+        if (!searched.count(person)) {
+            if (person == seller) {
+                cout << person + " is a mango seller" << endl;
+                return true;
+
+            } else {
+                for(string s: graph[person]) {
+                    search_queue.push(s);
+                }
                 searched.insert(person);
-            }
-        }
+            } 
+        } 
     }
 
     return false;
@@ -50,7 +54,7 @@ int main() {
     graph["thom"] = {};
     graph["jonny"] = {};
 
-    cout << "Result of bfs " << bfs(graph, "you") << endl;
+    cout << "Result of bfs " << bfs(graph, "you", "anuj") << endl;
 
     return 0;
 }
